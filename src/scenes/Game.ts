@@ -1,32 +1,27 @@
 import Phaser from 'phaser'
 // import bomb from '../../public/images/bomb.png'
 
-export default class GameScene extends Phaser.Scene {
+export default class Game extends Phaser.Scene {
   private platforms?: Phaser.Physics.Arcade.StaticGroup
   private player?: Phaser.Physics.Arcade.Sprite
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys
 
   constructor() {
-    super('hello-world')
-
-    var mario = {
-      sprite: undefined,
-      direction: 'right',
-      doNothing: true,
-    }
+    super('game')
   }
 
   preload() {
     this.load.image('background', 'images/background.png')
-    this.load.image('ground', 'images/ground.png')
     this.load.spritesheet('mario', 'images/smallMario.png', {
       frameWidth: 34,
       frameHeight: 34,
     })
+    this.load.tilemapTiledJSON('map', 'map/map.json')
+    this.load.image('tiles', 'images/tiles/tiles.png')
   }
 
   create() {
-    this.add.image(400, 300, 'background')
+    this.add.image(0, 0, 'tiles')
 
     this.platforms = this.physics.add.staticGroup()
     const ground = this.platforms.create(
