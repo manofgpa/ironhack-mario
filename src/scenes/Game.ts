@@ -21,7 +21,12 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0, 0, 'tiles')
+    const map = this.make.tilemap({ key: 'mainMap' })
+    const tileset = map.addTilesetImage('tiles', 'tiles')
+    const tileset2 = map.addTilesetImage('tiles2', 'tiles2')
+
+    map.createLayer('sky', tileset2)
+    map.createLayer('main', tileset)
 
     this.platforms = this.physics.add.staticGroup()
     const ground = this.platforms.create(
