@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Monty from '../enemies/Monty'
 // import bomb from '../../public/images/bomb.png'
 
 export default class Game extends Phaser.Scene {
@@ -12,6 +13,10 @@ export default class Game extends Phaser.Scene {
 
   preload() {
     this.load.image('background', 'images/background.png')
+    this.load.spritesheet('monty', 'images/enemies/monty.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    })
     this.load.spritesheet('mario', 'images/smallMario.png', {
       frameWidth: 34,
       frameHeight: 34,
@@ -28,13 +33,16 @@ export default class Game extends Phaser.Scene {
 
     const skyLayer = map.createLayer('sky', tileset2)
     const mainLayer = map.createLayer('main', tileset)
+    const groundLayer = map.createLayer('ground', tileset)
+
     // Map collision
     mainLayer.setCollisionByProperty({ collides: true })
     skyLayer.setCollisionByProperty({ collides: true })
+    groundLayer.setCollisionByProperty({ collides: true })
 
-    // Colission debug
+    // Collision debug
     const debugGraphics = this.add.graphics().setAlpha(0.75)
-    mainLayer.renderDebug(debugGraphics, {
+    groundLayer.renderDebug(debugGraphics, {
       tileColor: null,
       collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
       faceColor: new Phaser.Display.Color(40, 39, 37, 255),
@@ -45,12 +53,25 @@ export default class Game extends Phaser.Scene {
 
     this.platforms = this.physics.add.staticGroup()
 
-    this.player = this.physics.add.sprite(200, 50, 'mario').setScale(0.7)
-    this.player.setBounce(0.2)
-    // this.player.setCollideWorldBounds(true)
+    this.player = this.physics.add.sprite(50, 130, 'mario').setScale(0.7)
+    this.player.setBounce(0.1)
+
+    // Enemies
+    const enemies = this.physics.add.group({
+      classType: Monty,
+      createCallback: go => {
+        const montyGo = go as Monty
+        montyGo.body.onCollide = true
+      },
+    })
+    enemies.get(400, 230, 'monty')
 
     this.physics.add.collider(this.player, mainLayer)
-    // this.physics.add.collider(this.player, this.platforms)
+    this.physics.add.collider(this.player, groundLayer)
+    this.physics.add.collider(this.player, enemies)
+
+    this.physics.add.collider(enemies, mainLayer)
+    this.physics.add.collider(enemies, groundLayer)
 
     // Camera
     this.cameras.main.setBounds(0, 0, 3384, 500)
