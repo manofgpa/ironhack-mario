@@ -47,13 +47,13 @@ export default class Game extends Phaser.Scene {
 
     this.player = this.physics.add.sprite(200, 50, 'mario').setScale(0.7)
     this.player.setBounce(0.2)
-    this.player.setCollideWorldBounds(true)
+    // this.player.setCollideWorldBounds(true)
 
     this.physics.add.collider(this.player, mainLayer)
     // this.physics.add.collider(this.player, this.platforms)
 
     // Camera
-    this.cameras.main.setBounds(0, 0, 2048, 500)
+    this.cameras.main.setBounds(0, 0, 3384, 500)
     this.cameras.main.startFollow(this.player, false, 1, 0)
 
     this.anims.create({
