@@ -25,20 +25,27 @@ export default class Game extends Phaser.Scene {
     const tileset = map.addTilesetImage('tiles', 'tiles')
     const tileset2 = map.addTilesetImage('tiles2', 'tiles2')
 
-    map.createLayer('sky', tileset2)
-    map.createLayer('main', tileset)
+    const skyLayer = map.createLayer('sky', tileset2)
+    const mainLayer = map.createLayer('main', tileset)
+
+    mainLayer.setCollisionByProperty({ collides: true })
+    skyLayer.setCollisionByProperty({ collides: true })
+
+    const debugGraphics = this.add.graphics().setAlpha(0.75)
+    mainLayer.renderDebug(debugGraphics, {
+      tileColor: null,
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+    })
 
     this.platforms = this.physics.add.staticGroup()
-    const ground = this.platforms.create(
-      400,
-      700,
-      'ground'
-    ) as Phaser.Physics.Arcade.Sprite
-    ground.setScale(0.8).refreshBody()
 
-    this.player = this.physics.add.sprite(300, 450, 'mario').setScale(1)
+    this.player = this.physics.add.sprite(200, 50, 'mario').setScale(0.7)
     this.player.setBounce(0.2)
     this.player.setCollideWorldBounds(true)
+
+    this.physics.add.collider(this.player, mainLayer)
+    // this.physics.add.collider(this.player, this.platforms)
 
     this.anims.create({
       key: 'left',
@@ -87,8 +94,6 @@ export default class Game extends Phaser.Scene {
       repeat: -1,
     })
 
-    this.physics.add.collider(this.player, this.platforms)
-
     this.cursors = this.input.keyboard.createCursorKeys()
   }
 
@@ -96,7 +101,7 @@ export default class Game extends Phaser.Scene {
     if (!this.cursors) {
       return
     }
-
+    // Movements
     if (this.cursors.left?.isDown) {
       this.player?.setFlipX(true)
       this.player?.setVelocityX(-160)
@@ -112,7 +117,8 @@ export default class Game extends Phaser.Scene {
       this.player?.anims.play('turn')
     }
 
-    if (this.cursors.up?.isDown && this.player?.body.touching.down) {
+    // Jump
+    if (this.cursors.up?.isDown && this.player?.body.blocked.down) {
       this.player.setVelocityY(-330)
     }
   }
