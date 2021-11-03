@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { gameOptions } from '~/config/gameOptions'
+import { gameOptions } from '../config/gameOptions'
 
 // import { sceneEvents } from '../events/EventsCenter'
 
@@ -22,11 +22,7 @@ enum HealthState {
 }
 
 export default class Mario extends Phaser.Physics.Arcade.Sprite {
-  private healthState = HealthState.IDLE
-
-  get health() {
-    return this._health
-  }
+  // private healthState = HealthState.IDLE
 
   constructor(
     scene: Phaser.Scene,
@@ -37,15 +33,14 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, texture, frame)
 
-    this.physics.add.sprite(50, 130, 'mario').setScale(0.7)
     this.anims.play('mario-idle')
   }
 
-  handleDie(dir: Phaser.Math.Vector2) {
-    this.healthState = HealthState.DEAD
-    this.anims.play('mario-die')
-    this.setVelocity(0, 0)
-  }
+  // handleDie(dir: Phaser.Math.Vector2) {
+  //   this.healthState = HealthState.DEAD
+  //   this.anims.play('mario-die')
+  //   this.setVelocity(0, 0)
+  // }
 
   // private throwKnife() {
   //   if (!this.knives) {
@@ -87,18 +82,17 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
   // }
 
   preUpdate(t: number, dt: number) {
-    super.preUpdate(t, dt)
-
-    switch (this.healthState) {
-      case HealthState.IDLE:
-        break
-    }
+    // super.preUpdate(t, dt)
+    // switch (this.healthState) {
+    //   case HealthState.IDLE:
+    //     break
+    // }
   }
 
   update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
-    if (this.healthState === HealthState.DEAD) {
-      return
-    }
+    // if (this.healthState === HealthState.DEAD) {
+    //   return
+    // }
 
     if (!cursors) {
       return
@@ -112,16 +106,20 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     if (leftDown) {
       this.setFlipX(true)
       this.setVelocityX(-gameOptions.playerSpeed)
-      this.anims.play('left', true)
+      this.anims.play('mario-left', true)
     } else if (rightDown) {
       this.setFlipX(false)
       this.setVelocityX(gameOptions.playerSpeed)
-      this.anims.play('right', true)
+      this.anims.play('mario-right', true)
     } else if (upDown) {
-      this.anims.play('up', true)
+      this.anims.play('mario-up', true)
     } else {
       this.setVelocityX(0)
-      this.anims.play('turn')
+      this.anims.play('mario-idle')
+    }
+    // Jump
+    if (upDown && this.body.blocked.down) {
+      this.setVelocityY(gameOptions.playerJump)
     }
   }
 }
@@ -135,7 +133,7 @@ Phaser.GameObjects.GameObjectFactory.register(
     texture: string,
     frame?: string | number
   ) {
-    var sprite = new Mario(this.scene, x, y, texture, frame)
+    var sprite = new Mario(this.scene, x, y, texture, frame).setScale(0.6)
 
     this.displayList.add(sprite)
     this.updateList.add(sprite)
@@ -145,7 +143,7 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     )
 
-    sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8)
+    sprite.body.setSize(sprite.width * 0.5, sprite.height * 1)
 
     return sprite
   }
