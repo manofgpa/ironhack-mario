@@ -1,11 +1,12 @@
 import Phaser from 'phaser'
 import Monty from '../enemies/Monty'
-// import bomb from '../../public/images/bomb.png'
+import Mario from '../characters/Mario'
+import { gameOptions } from '../config/gameOptions'
 
 export default class Game extends Phaser.Scene {
-  private platforms?: Phaser.Physics.Arcade.StaticGroup
-  private player?: Phaser.Physics.Arcade.Sprite
+  private mario!: Mario
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys
+  private enemies?: Phaser.Physics.Arcade.Group
 
   constructor() {
     super('game')
@@ -51,34 +52,34 @@ export default class Game extends Phaser.Scene {
     this.cameras.main.setZoom(1)
     this.cameras.main.centerOn(0, 0)
 
-    this.platforms = this.physics.add.staticGroup()
-
-    this.player = this.physics.add.sprite(50, 130, 'mario').setScale(0.7)
-    this.player.setBounce(0.1)
+    this.mario = this.physics.add.sprite(50, 130, 'mario').setScale(0.7)
+    this.mario.setBounce(0.1)
 
     // Enemies
-    const enemies = this.physics.add.group({
+    this.enemies = this.physics.add.group({
       classType: Monty,
       createCallback: go => {
         const montyGo = go as Monty
         montyGo.body.onCollide = true
       },
     })
-    enemies.get(400, 230, 'monty')
+    this.enemies.get(400, 230, 'monty')
+    this.enemies.get(500, 230, 'monty')
+    this.enemies.get(800, 230, 'monty')
 
-    this.physics.add.collider(this.player, mainLayer)
-    this.physics.add.collider(this.player, groundLayer)
-    this.physics.add.collider(this.player, enemies)
+    this.physics.add.collider(this.mario, mainLayer)
+    this.physics.add.collider(this.mario, groundLayer)
+    this.physics.add.collider(this.mario, this.enemies)
 
-    this.physics.add.collider(enemies, mainLayer)
-    this.physics.add.collider(enemies, groundLayer)
+    this.physics.add.collider(this.enemies, mainLayer)
+    this.physics.add.collider(this.enemies, groundLayer)
 
     // Camera
     this.cameras.main.setBounds(0, 0, 3384, 500)
-    this.cameras.main.startFollow(this.player, false, 1, 0)
+    this.cameras.main.startFollow(this.mario, false, 1, 0)
 
     this.anims.create({
-      key: 'left',
+      key: 'mario-left',
       frames: this.anims.generateFrameNumbers('mario', {
         start: 4,
         end: 5,
@@ -89,13 +90,13 @@ export default class Game extends Phaser.Scene {
     })
 
     this.anims.create({
-      key: 'turn',
+      key: 'mario-turn',
       frames: [{ key: 'mario', frame: 4 }],
       frameRate: 20,
     })
 
     this.anims.create({
-      key: 'right',
+      key: 'mario-right',
       frames: this.anims.generateFrameNumbers('mario', {
         start: 4,
         end: 5,
@@ -105,7 +106,7 @@ export default class Game extends Phaser.Scene {
     })
 
     this.anims.create({
-      key: 'up',
+      key: 'mario-up',
       frames: this.anims.generateFrameNumbers('mario', {
         start: 6,
         end: 6,
@@ -115,7 +116,7 @@ export default class Game extends Phaser.Scene {
     })
 
     this.anims.create({
-      key: 'die',
+      key: 'mario-die',
       frames: this.anims.generateFrameNumbers('mario', {
         start: 1,
         end: 1,
@@ -125,31 +126,56 @@ export default class Game extends Phaser.Scene {
     })
 
     this.cursors = this.input.keyboard.createCursorKeys()
+
+    // mario-enemy collision
+
+    this.physics.add.collider(
+      this.mario,
+      this.enemies,
+      function (mario, enemy) {
+        if (enemy.body.touching.up && mario.body.touching.down) {
+          mario.body.velocity.y = -gameOptions.marioJump
+        } else {
+          // any other way to collide on an enemy will restart the game
+          // game.state.start('PlayGame')
+        }
+      },
+      undefined,
+      this
+    )
   }
+
+  // private handlemarioLizardCollision(
+  //   obj1: Phaser.GameObjects.GameObject,
+  //   obj2: Phaser.GameObjects.GameObject
+  // ) {
+  //   const mounty = obj2 as Monty
+
+  //   const dx = this.mario.x - mounty.x
+  //   const dy = this.mario.y - mounty.y
+
+  //   const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200)
+
+  //   this.mario.handleDamage(dir)
+
+  //   sceneEvents.emit('mario-health-changed', this.mario.health)
+
+  //   if (this.mario.health <= 0) {
+  //     this.marioLizardsCollider?.destroy()
+  //   }
+  // }
 
   update() {
     if (!this.cursors) {
       return
     }
     // Movements
-    if (this.cursors.left?.isDown) {
-      this.player?.setFlipX(true)
-      this.player?.setVelocityX(-160)
-      this.player?.anims.play('left', true)
-    } else if (this.cursors.right?.isDown) {
-      this.player?.setFlipX(false)
-      this.player?.setVelocityX(160)
-      this.player?.anims.play('right', true)
-    } else if (this.cursors.up?.isDown) {
-      this.player?.anims.play('up', true)
-    } else {
-      this.player?.setVelocityX(0)
-      this.player?.anims.play('turn')
-    }
 
     // Jump
-    if (this.cursors.up?.isDown && this.player?.body.blocked.down) {
-      this.player.setVelocityY(-330)
+    if (this.cursors.up?.isDown && this.mario?.body.blocked.down) {
+      this.mario.setVelocityY(gameOptions.marioJump)
     }
+
+    // Enemy
   }
 }
