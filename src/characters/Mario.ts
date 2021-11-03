@@ -33,7 +33,7 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, texture, frame)
 
-    this.anims.play('mario-idle')
+    // this.anims.play('mario-idle')
   }
 
   // handleDie(dir: Phaser.Math.Vector2) {
@@ -115,7 +115,7 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
       this.anims.play('mario-up', true)
     } else {
       this.setVelocityX(0)
-      this.anims.play('mario-idle')
+      this.anims.play('mario-idle', true)
     }
     // Jump
     if (upDown && this.body.blocked.down) {

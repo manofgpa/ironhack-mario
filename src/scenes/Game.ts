@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import Monty from '../enemies/Monty'
 import '../characters/Mario'
 import { gameOptions } from '../config/gameOptions'
-
+import { createCharacterAnims } from '../animations/CharacterAnims'
 export default class Game extends Phaser.Scene {
   private mario?: Phaser.Physics.Arcade.Sprite
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys
@@ -15,57 +15,7 @@ export default class Game extends Phaser.Scene {
   preload() {}
 
   create() {
-    // animations
-    this.anims.create({
-      key: 'mario-idle',
-      frames: this.anims.generateFrameNumbers('mario', {
-        start: 0,
-        end: 0,
-      }),
-
-      frameRate: 15,
-      repeat: -1,
-    })
-
-    this.anims.create({
-      key: 'mario-left',
-      frames: this.anims.generateFrameNumbers('mario', {
-        start: 2,
-        end: 5,
-      }),
-      frameRate: 15,
-      repeat: -1,
-    })
-
-    this.anims.create({
-      key: 'mario-right',
-      frames: this.anims.generateFrameNumbers('mario', {
-        start: 4,
-        end: 5,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    })
-
-    this.anims.create({
-      key: 'mario-up',
-      frames: this.anims.generateFrameNumbers('mario', {
-        start: 6,
-        end: 6,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    })
-
-    this.anims.create({
-      key: 'mario-die',
-      frames: this.anims.generateFrameNumbers('mario', {
-        start: 1,
-        end: 1,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    })
+    createCharacterAnims(this.anims)
 
     // Map creation
     const map = this.make.tilemap({ key: 'mainMap' })
