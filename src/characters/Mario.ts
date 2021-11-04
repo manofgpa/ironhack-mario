@@ -78,13 +78,11 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     if (leftDown) {
       this.anims.play('mario-left', true)
       this.setVelocityX(-gameOptions.playerSpeed)
-
-      this.scaleX = -0.6
+      this.setFlipX(true)
     } else if (rightDown) {
       this.anims.play('mario-right', true)
       this.setVelocityX(gameOptions.playerSpeed)
-
-      this.scaleX = 0.6
+      this.setFlipX(false)
     } else if (upDown) {
       this.anims.play('mario-up', true)
     } else {

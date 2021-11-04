@@ -82,6 +82,7 @@ export default class Game extends Phaser.Scene {
 
     this.physics.add.collider(this.enemies, mainLayer)
     this.physics.add.collider(this.enemies, groundLayer)
+    // this.physics.add.collider(this.enemies, this.enemies)
 
     // Camera
     this.cameras.main.setBounds(0, 0, 3384, 500)
@@ -115,7 +116,6 @@ export default class Game extends Phaser.Scene {
     if (!this.cursors || !this.mario) {
       return
     }
-    console.log(this.mario.x)
 
     // Movements
     if (this.mario) {
