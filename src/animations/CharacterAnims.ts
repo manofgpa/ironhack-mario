@@ -1,10 +1,10 @@
 import Phaser from 'phaser'
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
-  // animations
   anims.create({
     key: 'mario-right',
     repeat: -1,
+    frameRate: 15,
     frames: anims.generateFrameNumbers('mario', {
       start: 2,
       end: 5,
@@ -14,6 +14,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
   anims.create({
     key: 'mario-left',
     repeat: -1,
+    frameRate: 15,
     frames: anims.generateFrameNumbers('mario', {
       start: 2,
       end: 5,
@@ -26,7 +27,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
       start: 0,
       end: 0,
     }),
-    frameRate: 10,
+    frameRate: 15,
     repeat: -1,
   })
 
@@ -36,6 +37,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
       start: 6,
       end: 6,
     }),
+    frameRate: 15,
     repeat: -1,
   })
 
@@ -45,6 +47,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
       start: 1,
       end: 1,
     }),
+    frameRate: 15,
     repeat: -1,
   })
 }

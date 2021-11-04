@@ -33,7 +33,7 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, texture, frame)
 
-    // this.anims.play('mario-idle')
+    this.anims.play('mario-idle')
   }
 
   // handleDie(dir: Phaser.Math.Vector2) {
@@ -104,13 +104,15 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     const downDown = cursors.down?.isDown
 
     if (leftDown) {
-      this.setFlipX(true)
-      this.setVelocityX(-gameOptions.playerSpeed)
       this.anims.play('mario-left', true)
+      this.setVelocityX(-gameOptions.playerSpeed)
+
+      this.scaleX = -0.6
     } else if (rightDown) {
-      this.setFlipX(false)
-      this.setVelocityX(gameOptions.playerSpeed)
       this.anims.play('mario-right', true)
+      this.setVelocityX(gameOptions.playerSpeed)
+
+      this.scaleX = 0.6
     } else if (upDown) {
       this.anims.play('mario-up', true)
     } else {
@@ -143,7 +145,7 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     )
 
-    sprite.body.setSize(sprite.width * 0.5, sprite.height * 1)
+    sprite.body.setSize(sprite.width * 0.6, sprite.height * 1)
 
     return sprite
   }
