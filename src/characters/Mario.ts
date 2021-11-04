@@ -46,12 +46,8 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     super.preUpdate(t, dt)
     switch (this.healthState) {
       case HealthState.LIVE:
-        console.log('vivo')
-
         break
       case HealthState.DEAD:
-        console.log('dead')
-
         break
     }
   }
