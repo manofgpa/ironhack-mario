@@ -76,9 +76,9 @@ export default class Game extends Phaser.Scene {
       this.enemies,
       function (mario, enemy) {
         if (enemy.body.touching.left || enemy.body.touching.left) {
-          console.log('morreu')
         } else if (enemy.body.touching.up && mario.body.touching.down) {
-          console.log('matou')
+          enemy.destroy()
+          mario.jump()
         }
       },
       undefined,

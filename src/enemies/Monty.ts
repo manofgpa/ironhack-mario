@@ -36,7 +36,9 @@ export default class Monty extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  handleDie() {}
+  handleDie() {
+    console.log('morreu')
+  }
 
   preUpdate(t: number, dt: number) {
     super.preUpdate(t, dt)

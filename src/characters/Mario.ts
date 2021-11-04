@@ -89,6 +89,10 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     // }
   }
 
+  jump() {
+    this.setVelocityY(gameOptions.playerJump)
+  }
+
   update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
     // if (this.healthState === HealthState.DEAD) {
     //   return
@@ -121,7 +125,8 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     }
     // Jump
     if (upDown && this.body.blocked.down) {
-      this.setVelocityY(gameOptions.playerJump)
+      // this.setVelocityY(gameOptions.playerJump)
+      this.jump()
     }
   }
 }
