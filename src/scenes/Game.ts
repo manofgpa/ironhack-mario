@@ -2,9 +2,11 @@ import Phaser from 'phaser'
 import Monty from '../enemies/Monty'
 import '../characters/Mario'
 
+import Coin from '../items/Coins'
 import { gameOptions } from '../config/gameOptions'
 import { createCharacterAnims } from '../animations/CharacterAnims'
 import { createEnemiesAnims } from '../animations/EnemiesAnims'
+import { createItemsAnims } from '../animations/ItemsAnims'
 export default class Game extends Phaser.Scene {
   private mario?: Phaser.Physics.Arcade.Sprite
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys
@@ -24,6 +26,7 @@ export default class Game extends Phaser.Scene {
 
     createCharacterAnims(this.anims)
     createEnemiesAnims(this.anims)
+    createItemsAnims(this.anims)
 
     // Map creation
     const map = this.make.tilemap({ key: 'mainMap' })

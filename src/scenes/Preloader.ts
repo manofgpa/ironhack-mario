@@ -30,6 +30,11 @@ export default class Preloader extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     })
+    this.load.atlas(
+      'atlas',
+      'images/mario-atlas.png',
+      'resources/mario-atlas.json'
+    )
     this.load.tilemapTiledJSON('map', 'map/map.json')
     this.load.image('tiles', 'images/tiles/tiles.png')
   }
