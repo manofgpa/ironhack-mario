@@ -36,6 +36,8 @@ export default class Monty extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+  handleDie() {}
+
   preUpdate(t: number, dt: number) {
     super.preUpdate(t, dt)
 
@@ -44,9 +46,13 @@ export default class Monty extends Phaser.Physics.Arcade.Sprite {
     switch (this.direction) {
       case Direction.LEFT:
         this.setVelocity(-speed, 0)
+        this.anims.play('monty-left', true)
+
         break
       case Direction.RIGHT:
         this.setVelocity(speed, 0)
+        this.anims.play('monty-right', true)
+
         break
     }
   }

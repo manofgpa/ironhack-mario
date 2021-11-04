@@ -3,6 +3,7 @@ import Monty from '../enemies/Monty'
 import '../characters/Mario'
 import { gameOptions } from '../config/gameOptions'
 import { createCharacterAnims } from '../animations/CharacterAnims'
+import { createEnemiesAnims } from '../animations/EnemiesAnims'
 export default class Game extends Phaser.Scene {
   private mario?: Phaser.Physics.Arcade.Sprite
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys
@@ -16,6 +17,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     createCharacterAnims(this.anims)
+    createEnemiesAnims(this.anims)
 
     // Map creation
     const map = this.make.tilemap({ key: 'mainMap' })
@@ -39,7 +41,7 @@ export default class Game extends Phaser.Scene {
       faceColor: new Phaser.Display.Color(40, 39, 37, 255),
     })
 
-    this.mario = this.add.mario(200, 200, 'mario')
+    this.mario = this.add.mario(100, 200, 'mario')
 
     // Enemies
     this.enemies = this.physics.add.group({

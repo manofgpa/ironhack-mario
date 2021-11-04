@@ -145,7 +145,7 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     )
 
-    sprite.body.setSize(sprite.width * 0.6, sprite.height * 1)
+    sprite.body.setSize(sprite.width * 0.8, sprite.height * 1)
 
     return sprite
   }
