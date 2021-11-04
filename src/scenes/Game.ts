@@ -75,9 +75,12 @@ export default class Game extends Phaser.Scene {
       this.mario,
       this.enemies,
       function (mario, enemy) {
-        if (enemy.body.touching.left || enemy.body.touching.left) {
+        if (enemy.body.touching.left || enemy.body.touching.right) {
+          mario.handleDie()
+          this.scene.start('game-over', { title: 'GAME OVER' })
+          return
         } else if (enemy.body.touching.up && mario.body.touching.down) {
-          enemy.destroy()
+          enemy.handleDie()
           mario.jump()
         }
       },

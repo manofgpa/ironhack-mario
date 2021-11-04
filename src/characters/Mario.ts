@@ -22,7 +22,7 @@ enum HealthState {
 }
 
 export default class Mario extends Phaser.Physics.Arcade.Sprite {
-  // private healthState = HealthState.IDLE
+  private healthState = HealthState.IDLE
 
   constructor(
     scene: Phaser.Scene,
@@ -36,11 +36,11 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     this.anims.play('mario-idle')
   }
 
-  // handleDie(dir: Phaser.Math.Vector2) {
-  //   this.healthState = HealthState.DEAD
-  //   this.anims.play('mario-die')
-  //   this.setVelocity(0, 0)
-  // }
+  handleDie() {
+    this.anims.play('mario-die')
+    this.setVelocity(0, 0)
+    this.healthState = HealthState.DEAD
+  }
 
   // private throwKnife() {
   //   if (!this.knives) {
