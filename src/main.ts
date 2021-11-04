@@ -18,6 +18,9 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     zoom: 3,
   },
+  render: {
+    pixelArt: true,
+  },
 }
 
 export default new Phaser.Game(config)

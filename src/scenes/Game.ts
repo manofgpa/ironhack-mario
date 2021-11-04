@@ -17,6 +17,10 @@ export default class Game extends Phaser.Scene {
   preload() {}
 
   create() {
+    this.sound.play('theme', {
+      loop: true,
+    })
+
     createCharacterAnims(this.anims)
     createEnemiesAnims(this.anims)
 
@@ -35,14 +39,14 @@ export default class Game extends Phaser.Scene {
     groundLayer.setCollisionByProperty({ collides: true })
 
     // Collision debug
-    const debugGraphics = this.add.graphics().setAlpha(0.75)
-    groundLayer.renderDebug(debugGraphics, {
-      tileColor: null,
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255),
-    })
+    // const debugGraphics = this.add.graphics().setAlpha(0.75)
+    // groundLayer.renderDebug(debugGraphics, {
+    //   tileColor: null,
+    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255),
+    // })
 
-    this.mario = this.add.mario(100, 200, 'mario')
+    this.mario = this.add.mario(100, 220, 'mario')
 
     // Enemies
     this.enemies = this.physics.add.group({

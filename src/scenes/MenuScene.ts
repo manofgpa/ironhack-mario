@@ -34,7 +34,8 @@ export default class Menu extends Phaser.Scene {
       .text(
         this.game.renderer.width / 2,
         this.game.renderer.height / 2 + 30,
-        '1 PLAYER GAME'
+        '1 PLAYER GAME',
+        { fontFamily: 'SuperMario256' }
       )
       .setOrigin(0.5)
 
@@ -42,19 +43,20 @@ export default class Menu extends Phaser.Scene {
       .text(
         this.game.renderer.width / 2,
         this.game.renderer.height / 2 + 50,
-        '2 PLAYER GAME'
+        '2 PLAYER GAME',
+        { fontFamily: 'SuperMario256' }
       )
       .setOrigin(0.5)
 
     let hoverMush = this.add.sprite(100, 100, 'mush')
-    hoverMush.setScale(0.4)
+    hoverMush.setScale(0.5)
     hoverMush.setVisible(false)
 
     singlePlayerButton.setInteractive()
 
     singlePlayerButton.on('pointerover', () => {
       hoverMush.setVisible(true)
-      hoverMush.x = singlePlayerButton.x - 80
+      hoverMush.x = singlePlayerButton.x - 70
       hoverMush.y = singlePlayerButton.y
     })
     singlePlayerButton.on('pointerout', () => {
@@ -67,13 +69,15 @@ export default class Menu extends Phaser.Scene {
     multiplePlayerButton.setInteractive()
 
     multiplePlayerButton.on('pointerover', () => {
-      console.log('pointer over')
+      hoverMush.setVisible(true)
+      hoverMush.x = multiplePlayerButton.x - 70
+      hoverMush.y = multiplePlayerButton.y
     })
     multiplePlayerButton.on('pointerout', () => {
-      console.log('pointer out')
+      hoverMush.setVisible(false)
     })
     multiplePlayerButton.on('pointerup', () => {
-      console.log('pointer click')
+      this.scene.start('game')
     })
 
     // Map collision
