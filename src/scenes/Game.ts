@@ -104,8 +104,8 @@ export default class Game extends Phaser.Scene {
     if (this.mario) {
       this.mario.update(this.cursors, this.sound)
 
-      if (this.mario.y > 220) {
-        this.mario.handleDie()
+      if (this.mario.y > 250) {
+        this.scene.start('game-over', { title: 'GAME OVER' })
       }
     }
   }
