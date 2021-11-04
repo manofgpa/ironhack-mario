@@ -34,6 +34,7 @@ export default class Menu extends Phaser.Scene {
       .text(
         this.game.renderer.width / 2,
         this.game.renderer.height / 2 + 30,
+
         '1 PLAYER GAME',
         { fontFamily: 'SuperMario256' }
       )
@@ -56,7 +57,7 @@ export default class Menu extends Phaser.Scene {
 
     singlePlayerButton.on('pointerover', () => {
       hoverMush.setVisible(true)
-      hoverMush.x = singlePlayerButton.x - 70
+      hoverMush.x = singlePlayerButton.x - 80
       hoverMush.y = singlePlayerButton.y
     })
     singlePlayerButton.on('pointerout', () => {
@@ -70,7 +71,7 @@ export default class Menu extends Phaser.Scene {
 
     multiplePlayerButton.on('pointerover', () => {
       hoverMush.setVisible(true)
-      hoverMush.x = multiplePlayerButton.x - 70
+      hoverMush.x = multiplePlayerButton.x - 80
       hoverMush.y = multiplePlayerButton.y
     })
     multiplePlayerButton.on('pointerout', () => {

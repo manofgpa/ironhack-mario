@@ -64,7 +64,17 @@ export default class Game extends Phaser.Scene {
 
     this.enemies.get(400, 230, 'monty')
     this.enemies.get(500, 230, 'monty')
+    this.enemies.get(680, 230, 'monty')
+    this.enemies.get(690, 230, 'monty')
     this.enemies.get(800, 230, 'monty')
+    this.enemies.get(1250, 230, 'monty')
+    this.enemies.get(2120, 230, 'monty')
+    this.enemies.get(2050, 230, 'monty')
+    this.enemies.get(2335, 230, 'monty')
+    this.enemies.get(2450, 230, 'monty')
+    this.enemies.get(2550, 230, 'monty')
+    this.enemies.get(2650, 230, 'monty')
+    this.enemies.get(2800, 230, 'monty')
 
     this.physics.add.collider(this.mario, mainLayer)
     this.physics.add.collider(this.mario, groundLayer)
@@ -105,6 +115,8 @@ export default class Game extends Phaser.Scene {
     if (!this.cursors || !this.mario) {
       return
     }
+    console.log(this.mario.x)
+
     // Movements
     if (this.mario) {
       this.mario.update(this.cursors, this.sound)

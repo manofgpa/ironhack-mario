@@ -1,4 +1,10 @@
+body {
+    text-align: center;
+    margin-top: 15%;
+}
+
 @font-face {
     font-family: SuperMario256;
     src: url('../../public/fonts/SuperMario256.ttf');
 }
+
