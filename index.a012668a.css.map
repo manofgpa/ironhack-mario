@@ -1,0 +1,1 @@
+{"mappings":"AAAA,KAEI,cAAe,CADf,iBAEJ,CAEA,WACI,yBAA0B,CAC1B,oDACJ","sources":["src/styles/font.css"],"sourcesContent":["body {\n    text-align: center;\n    margin-top: 15%;\n}\n\n@font-face {\n    font-family: SuperMario256;\n    src: url('../../public/fonts/SuperMario256.ttf');\n}\n\n"],"names":[],"version":3,"file":"index.a012668a.css.map"}

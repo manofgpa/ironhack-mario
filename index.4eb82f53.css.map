@@ -1,1 +1,0 @@
-{"mappings":"AAAA,WACI,yBAA0B,CAC1B,oDACJ","sources":["src/styles/font.css"],"sourcesContent":["@font-face {\n    font-family: SuperMario256;\n    src: url('../../public/fonts/SuperMario256.ttf');\n}"],"names":[],"version":3,"file":"index.4eb82f53.css.map"}

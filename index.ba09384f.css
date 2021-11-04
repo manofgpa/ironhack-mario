@@ -1,5 +1,12 @@
+body {
+    text-align: center;
+    margin-top: 15%;
+}
+
 @font-face {
     font-family: SuperMario256;
     src: url('SuperMario256.3ec22cb5.ttf');
 }
+
+
 /*# sourceMappingURL=index.ba09384f.css.map */
