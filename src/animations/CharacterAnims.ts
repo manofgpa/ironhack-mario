@@ -6,7 +6,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     repeat: -1,
     frameRate: 15,
     frames: anims.generateFrameNumbers('mario', {
-      start: 2,
+      start: 4,
       end: 5,
     }),
   })
@@ -16,7 +16,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     repeat: -1,
     frameRate: 15,
     frames: anims.generateFrameNumbers('mario', {
-      start: 2,
+      start: 4,
       end: 5,
     }),
   })

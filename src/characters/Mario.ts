@@ -17,12 +17,12 @@ declare global {
 }
 
 enum HealthState {
-  IDLE,
+  LIVE,
   DEAD,
 }
 
 export default class Mario extends Phaser.Physics.Arcade.Sprite {
-  private healthState = HealthState.IDLE
+  private healthState = HealthState.LIVE
 
   constructor(
     scene: Phaser.Scene,
@@ -42,58 +42,26 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     this.healthState = HealthState.DEAD
   }
 
-  // private throwKnife() {
-  //   if (!this.knives) {
-  //     return
-  //   }
-
-  //   const knife = this.knives.get(
-  //     this.x,
-  //     this.y,
-  //     'knife'
-  //   ) as Phaser.Physics.Arcade.Image
-  //   if (!knife) {
-  //     return
-  //   }
-
-  //   const parts = this.anims.currentAnim.key.split('-')
-  //   const direction = parts[2]
-
-  //   const vec = new Phaser.Math.Vector2(0, 0)
-
-  //   switch (direction) {
-  //     case 'up':
-  //       vec.y = -1
-  //       break
-
-  //     case 'down':
-  //       vec.y = 1
-  //       break
-
-  //     default:
-  //     case 'side':
-  //       if (this.scaleX < 0) {
-  //         vec.x = -1
-  //       } else {
-  //         vec.x = 1
-  //       }
-  //       break
-  //   }
-  // }
-
   preUpdate(t: number, dt: number) {
-    // super.preUpdate(t, dt)
-    // switch (this.healthState) {
-    //   case HealthState.IDLE:
-    //     break
-    // }
+    super.preUpdate(t, dt)
+    switch (this.healthState) {
+      case HealthState.LIVE:
+        console.log('vivo')
+
+        break
+      case HealthState.DEAD:
+        console.log('dead')
+
+        break
+    }
   }
 
-  jump() {
+  jump(sound?) {
     this.setVelocityY(gameOptions.playerJump)
+    sound?.play('jump', { volume: 0.1 })
   }
 
-  update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+  update(cursors: Phaser.Types.Input.Keyboard.CursorKeys, sound) {
     // if (this.healthState === HealthState.DEAD) {
     //   return
     // }
@@ -126,7 +94,7 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
     // Jump
     if (upDown && this.body.blocked.down) {
       // this.setVelocityY(gameOptions.playerJump)
-      this.jump()
+      this.jump(sound)
     }
   }
 }

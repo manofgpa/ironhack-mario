@@ -19,6 +19,7 @@ export default class Game extends Phaser.Scene {
   create() {
     this.sound.play('theme', {
       loop: true,
+      volume: 0.5,
     })
 
     createCharacterAnims(this.anims)
@@ -86,6 +87,7 @@ export default class Game extends Phaser.Scene {
           return
         } else if (enemy.body.touching.up && mario.body.touching.down) {
           enemy.handleDie()
+          this.sound.play('gompakill', { volume: 1 })
           mario.jump()
         }
       },
@@ -100,7 +102,11 @@ export default class Game extends Phaser.Scene {
     }
     // Movements
     if (this.mario) {
-      this.mario.update(this.cursors)
+      this.mario.update(this.cursors, this.sound)
+
+      if (this.mario.y > 220) {
+        this.mario.handleDie()
+      }
     }
   }
 }
