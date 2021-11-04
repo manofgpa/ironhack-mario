@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Monty from '../enemies/Monty'
 import '../characters/Mario'
+
 import { gameOptions } from '../config/gameOptions'
 import { createCharacterAnims } from '../animations/CharacterAnims'
 import { createEnemiesAnims } from '../animations/EnemiesAnims'
