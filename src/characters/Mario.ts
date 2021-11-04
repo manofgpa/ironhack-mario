@@ -38,8 +38,12 @@ export default class Mario extends Phaser.Physics.Arcade.Sprite {
 
   handleDie() {
     this.anims.play('mario-die')
-    this.setVelocity(0, 0)
+    this.setVelocity(0, -350)
+
+    // this.scene.physics.world.removeCollider(this/.collider)
     this.healthState = HealthState.DEAD
+
+    // this.scene.start('game-over', { title: 'GAME OVER' })
   }
 
   preUpdate(t: number, dt: number) {

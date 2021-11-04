@@ -48,6 +48,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
       end: 1,
     }),
     frameRate: 15,
+    repeat: -1,
   })
 }
 

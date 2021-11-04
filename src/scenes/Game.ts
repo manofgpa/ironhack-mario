@@ -19,6 +19,7 @@ export default class Game extends Phaser.Scene {
   preload() {}
 
   create() {
+    this.sound.stopAll()
     this.sound.play('theme', {
       loop: true,
       volume: 0.5,
@@ -86,6 +87,7 @@ export default class Game extends Phaser.Scene {
       function (mario, enemy) {
         if (enemy.body.touching.left || enemy.body.touching.right) {
           mario.handleDie()
+
           this.scene.start('game-over', { title: 'GAME OVER' })
           return
         } else if (enemy.body.touching.up && mario.body.touching.down) {
@@ -109,6 +111,13 @@ export default class Game extends Phaser.Scene {
 
       if (this.mario.y > 250) {
         this.scene.start('game-over', { title: 'GAME OVER' })
+      }
+
+      console.log(this.mario.x)
+
+      if (this.mario.x > 3191 && this.mario.x < 3192) {
+        this.sound.stopAll()
+        this.sound.play('areaclear')
       }
     }
   }
