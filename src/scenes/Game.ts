@@ -113,8 +113,6 @@ export default class Game extends Phaser.Scene {
         this.scene.start('game-over', { title: 'GAME OVER' })
       }
 
-      console.log(this.mario.x)
-
       if (this.mario.x > 3191 && this.mario.x < 3192) {
         this.sound.stopAll()
         this.sound.play('areaclear')
